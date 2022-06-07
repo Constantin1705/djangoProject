@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %} Details about {{ professor.first_name }} {{ professor.last_name }} {% endblock %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 offset-md-3"><br>
+                <div class="shadow-lg p-3 mb-5 bg-body rounded">
+                    <div class="card text-white bg-success" style="max-width: 100%;">
+                        <div class="card-header">{{ professor.first_name }} {{ professor.last_name }}</div>
+                        <div class="card-body">
+                            <h5 class="card-title">Details</h5>
+                            <p class="card-text">
+                                Department: {{ professor.department }}<br>
+                                The course starts at: {{ professor.time }}<br>
+                                {% if professor.active is True %}
+                                    This professor is active
+                                {% else %}
+                                    This professor is inactive
+                                {% endif %}
+                            </p>
+                        </div>
+                        <div class="card-footer text-center">
+                            <a href="{% url 'list_of_professors' %}" class="btn btn-secondary">CANCEL</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

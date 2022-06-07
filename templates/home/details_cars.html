@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title  %} Cars {% endblock %}
+{% block content %}
+    {% for car in all_cars %}
+        <p>{{ car.brand_name }}</p>
+        <p>{{ car.model_name }}</p>
+        <p>{{ car.horse_power }}</p>
+        <p>{{ car.year }}</p>
+    {% endfor %}
+    <a href="{% url 'details' %}" class="btn btn-primary">Go to list of students</a>
+{% endblock %}

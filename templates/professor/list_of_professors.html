@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block title %} List of professors {% endblock %}
+{% block content %}
+    <div class="container w-50"><br><br>
+        <div class="shadow-lg p-3 mb-5 bg-body rounded">
+            {% for professor in all_professors %}
+                <div class="card">
+                    <h5 class="card-header">{{ professor.first_name }} {{ professor.last_name }}</h5>
+                    <div class="card-body">
+                        <h5 class="card-title">Department: {{ professor.department }}</h5>
+                        <p class="card-text">Class starts at: {{ professor.time }}</p>
+                        <a href="{% url 'update_professor' professor.id %}" class="btn btn-success">Update</a>
+                        <a href="{% url 'details_professor' professor.id %}" class="btn btn-success">Details</a>
+                        <a href="{% url 'delete_professor' professor.id %}" class="btn btn-secondary">Delete</a>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#professor_{{ professor.id }}">
+                            Inactivate
+                        </button>
+                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                                data-bs-target="#deleteprofessor_{{ professor.id }}">
+                            Delete-modal
+                        </button>
+                        <div class="modal fade" id="professor_{{ professor.id }}" tabindex="-1"
+                             aria-labelledby="exampleModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title"
+                                            id="exampleModalLabel">{{ professor.first_name }} {{ professor.last_name }}</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Do you want to inactivate {{ professor.first_name }} {{ professor.last_name }}?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                                        </button>
+                                        <a href="{% url 'inactivate_professor' professor.id %}" class="btn btn-danger">Inactivate</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="deleteprofessor_{{ professor.id }}" tabindex="-1"
+                             aria-labelledby="exampleModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title"
+                                            id="exampleModalLabel">{{ professor.first_name }} {{ professor.last_name }}</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Do you want to delete {{ professor.first_name }} {{ professor.last_name }}?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a href="{% url 'inactivate_professor' professor.id %}" class="btn btn-danger">Yes</a>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
